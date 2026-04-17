@@ -1,0 +1,158 @@
+/*
+ * AH Reporting System — Custom Styles
+ * Overrides AdminLTE 3.2 primary color with #008bcc
+ * ============================================================
+ */
+
+/* =====================================================
+   PRIMARY COLOR OVERRIDE: #008bcc
+   ===================================================== */
+:root {
+    --primary:         #008bcc;
+    --primary-dark:    #007aad;
+    --primary-light:   #00a8e0;
+    --primary-alpha:   rgba(0, 139, 204, 0.15);
+}
+
+/* Sidebar */
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active:focus,
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active:hover {
+    background-color: #008bcc !important;
+    color: #fff !important;
+}
+
+.sidebar-dark-primary {
+    background-color: #1a2a3a !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #008bcc !important;
+    border-color: #007aad !important;
+    color: #fff !important;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #007aad !important;
+    border-color: #006a99 !important;
+}
+
+/* Background utilities */
+.bg-primary {
+    background-color: #008bcc !important;
+}
+
+/* Info boxes */
+.info-box .info-box-icon.bg-primary {
+    background-color: #008bcc !important;
+}
+
+/* Links */
+a {
+    color: #008bcc;
+}
+a:hover {
+    color: #007aad;
+}
+
+/* Cards */
+.card-primary:not(.card-outline) > .card-header {
+    background-color: #008bcc !important;
+}
+
+.card-primary.card-outline > .card-header {
+    border-top: 3px solid #008bcc !important;
+}
+
+/* Nav pills */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #008bcc !important;
+}
+
+/* Brand link */
+.brand-link {
+    border-bottom: 1px solid rgba(0, 139, 204, 0.3);
+}
+
+/* Pagination */
+.page-item.active .page-link {
+    background-color: #008bcc !important;
+    border-color: #008bcc !important;
+}
+
+/* Checkbox / radio (icheck) */
+.icheck-primary > input:first-child:checked + label::before,
+.icheck-primary > input:first-child:checked + input[type=hidden] + label::before {
+    background-color: #008bcc;
+    border-color: #008bcc;
+}
+
+/* Main header */
+.main-header.navbar {
+    border-bottom: 2px solid #008bcc;
+}
+
+/* =====================================================
+   GENERAL LAYOUT IMPROVEMENTS
+   ===================================================== */
+
+/* Consistent card styling */
+.card {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.card .card-header {
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    font-weight: 600;
+}
+
+/* Table improvements */
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    white-space: nowrap;
+}
+
+/* DataTables */
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 4px 10px;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: #008bcc;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 139, 204, 0.25);
+}
+
+/* =====================================================
+   FORM STYLING
+   ===================================================== */
+.form-control:focus {
+    border-color: #008bcc;
+    box-shadow: 0 0 0 0.2rem rgba(0, 139, 204, 0.25);
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+/* =====================================================
+   STATUS BADGES
+   ===================================================== */
+.badge-active {
+    background-color: #28a745;
+    color: #fff;
+}
+.badge-inactive {
+    background-color: #6c757d;
+    color: #fff;
+}
