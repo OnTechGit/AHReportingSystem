@@ -6,7 +6,7 @@ Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.Owin
 Imports AHReportingSystem.Models
 
-Namespace AHReportingSystem.Controllers
+Namespace Controllers
 
     ''' <summary>
     ''' Base controller for all AH Reporting System controllers.

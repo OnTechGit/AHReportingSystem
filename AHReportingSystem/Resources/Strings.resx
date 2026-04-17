@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="AppName" xml:space="preserve"><value>AH Reporting System</value></data>
+  <data name="AppShortName" xml:space="preserve"><value>AH Reporting</value></data>
+
+  <data name="Nav_Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Nav_ChartOfAccounts" xml:space="preserve"><value>Chart of Accounts</value></data>
+  <data name="Nav_SystemAccounts" xml:space="preserve"><value>System Accounts</value></data>
+  <data name="Nav_Categories" xml:space="preserve"><value>Categories</value></data>
+  <data name="Nav_Administration" xml:space="preserve"><value>ADMINISTRATION</value></data>
+  <data name="Nav_UserManagement" xml:space="preserve"><value>User Management</value></data>
+  <data name="Nav_ChangePassword" xml:space="preserve"><value>Change Password</value></data>
+  <data name="Nav_SignOut" xml:space="preserve"><value>Sign Out</value></data>
+  <data name="Nav_Language" xml:space="preserve"><value>Language</value></data>
+
+  <data name="Common_Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Common_English" xml:space="preserve"><value>English</value></data>
+  <data name="Common_Spanish" xml:space="preserve"><value>Spanish</value></data>
+  <data name="Common_Version" xml:space="preserve"><value>Version</value></data>
+
+  <data name="SignIn_Title" xml:space="preserve"><value>Sign In</value></data>
+  <data name="SignIn_Prompt" xml:space="preserve"><value>Sign in to start your session</value></data>
+  <data name="SignIn_Email" xml:space="preserve"><value>Email address</value></data>
+  <data name="SignIn_Password" xml:space="preserve"><value>Password</value></data>
+  <data name="SignIn_RememberMe" xml:space="preserve"><value>Remember Me</value></data>
+  <data name="SignIn_Button" xml:space="preserve"><value>Sign In</value></data>
+  <data name="SignIn_InvalidCreds" xml:space="preserve"><value>Invalid credentials or account is inactive.</value></data>
+  <data name="SignIn_InvalidEmailOrPassword" xml:space="preserve"><value>Invalid email or password.</value></data>
+  <data name="SignIn_LockedOut" xml:space="preserve"><value>Your account has been locked. Please try again in 5 minutes.</value></data>
+
+  <data name="LockScreen_Title" xml:space="preserve"><value>Session Locked</value></data>
+  <data name="LockScreen_EnterPassword" xml:space="preserve"><value>Enter your password to unlock</value></data>
+  <data name="LockScreen_SignOutInstead" xml:space="preserve"><value>Sign out instead</value></data>
+  <data name="LockScreen_SignOutConfirm" xml:space="preserve"><value>Are you sure you want to log out completely?</value></data>
+  <data name="LockScreen_InactivityMsg" xml:space="preserve"><value>Your session was locked due to inactivity.</value></data>
+  <data name="LockScreen_IncorrectPassword" xml:space="preserve"><value>Incorrect password. Please try again.</value></data>
+
+  <data name="Error_Title" xml:space="preserve"><value>An Error Occurred</value></data>
+  <data name="Error_Description" xml:space="preserve"><value>An unexpected error occurred while processing your request. Please try again or contact your system administrator if the problem persists.</value></data>
+  <data name="Error_ReturnToDashboard" xml:space="preserve"><value>Return to Dashboard</value></data>
+
+  <data name="Dashboard_Welcome" xml:space="preserve"><value>Welcome to AH Reporting System</value></data>
+  <data name="Dashboard_Intro" xml:space="preserve"><value>This system consolidates financial data from all Alternative Holdings companies, enabling unified reporting across the group.</value></data>
+  <data name="Dashboard_GettingStarted" xml:space="preserve"><value>Getting started:</value></data>
+  <data name="Dashboard_GettingStartedText" xml:space="preserve"><value>Begin by setting up the Chart of Accounts and account categories, then load General Ledger data for each company.</value></data>
+  <data name="Dashboard_InfoSystemAccounts" xml:space="preserve"><value>System Accounts</value></data>
+  <data name="Dashboard_InfoCompanies" xml:space="preserve"><value>Companies</value></data>
+  <data name="Dashboard_InfoGLPeriods" xml:space="preserve"><value>GL Periods Loaded</value></data>
+  <data name="Dashboard_InfoUnmapped" xml:space="preserve"><value>Unmapped Accounts</value></data>
+
+  <data name="ChangePassword_Title" xml:space="preserve"><value>Change Password</value></data>
+  <data name="ChangePassword_Forced" xml:space="preserve"><value>You must change your password before continuing.</value></data>
+  <data name="ChangePassword_Current" xml:space="preserve"><value>Current password</value></data>
+  <data name="ChangePassword_New" xml:space="preserve"><value>New password</value></data>
+  <data name="ChangePassword_Confirm" xml:space="preserve"><value>Confirm new password</value></data>
+  <data name="ChangePassword_Submit" xml:space="preserve"><value>Change Password</value></data>
+  <data name="ChangePassword_Success" xml:space="preserve"><value>Password changed successfully.</value></data>
+  <data name="ChangePassword_Mismatch" xml:space="preserve"><value>The new password and confirmation do not match.</value></data>
+  <data name="ChangePassword_Requirements" xml:space="preserve"><value>Minimum 8 characters, with at least one uppercase, one lowercase and one digit.</value></data>
+
+  <data name="Users_Title" xml:space="preserve"><value>User Management</value></data>
+  <data name="Users_New" xml:space="preserve"><value>New User</value></data>
+  <data name="Users_Edit" xml:space="preserve"><value>Edit User</value></data>
+  <data name="Users_Create" xml:space="preserve"><value>Create User</value></data>
+  <data name="Users_Col_FullName" xml:space="preserve"><value>Full Name</value></data>
+  <data name="Users_Col_Email" xml:space="preserve"><value>Email</value></data>
+  <data name="Users_Col_Role" xml:space="preserve"><value>Role</value></data>
+  <data name="Users_Col_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Users_Col_LastLogin" xml:space="preserve"><value>Last Login</value></data>
+  <data name="Users_Col_Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Users_InitialPassword" xml:space="preserve"><value>Initial password</value></data>
+  <data name="Users_InitialPassword_Hint" xml:space="preserve"><value>The user must change it on first login.</value></data>
+  <data name="Users_ResetPassword" xml:space="preserve"><value>Reset password</value></data>
+  <data name="Users_Activate" xml:space="preserve"><value>Activate</value></data>
+  <data name="Users_Deactivate" xml:space="preserve"><value>Deactivate</value></data>
+  <data name="Users_Created" xml:space="preserve"><value>User created successfully.</value></data>
+  <data name="Users_Updated" xml:space="preserve"><value>User updated successfully.</value></data>
+  <data name="Users_Activated" xml:space="preserve"><value>User activated.</value></data>
+  <data name="Users_Deactivated" xml:space="preserve"><value>User deactivated.</value></data>
+  <data name="Users_PasswordReset" xml:space="preserve"><value>Password reset. The user must change it on next login.</value></data>
+  <data name="Users_CannotDeactivateSelf" xml:space="preserve"><value>You cannot deactivate your own account.</value></data>
+  <data name="Users_CannotChangeSelfRole" xml:space="preserve"><value>You cannot change your own role.</value></data>
+  <data name="Users_EmailTaken" xml:space="preserve"><value>This email is already in use.</value></data>
+  <data name="Users_NotFound" xml:space="preserve"><value>User not found.</value></data>
+
+  <data name="Role_Admin" xml:space="preserve"><value>Administrator</value></data>
+  <data name="Role_Supervisor" xml:space="preserve"><value>Supervisor</value></data>
+  <data name="Role_User" xml:space="preserve"><value>User</value></data>
+  <data name="Role_Admin_Desc" xml:space="preserve"><value>Full access to everything in the application.</value></data>
+  <data name="Role_Supervisor_Desc" xml:space="preserve"><value>Operates catalogs, loads GL, views reports. Cannot manage users or global settings.</value></data>
+  <data name="Role_User_Desc" xml:space="preserve"><value>Read-only access to existing reports.</value></data>
+
+  <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="Common_No" xml:space="preserve"><value>No</value></data>
+  <data name="Common_Never" xml:space="preserve"><value>Never</value></data>
+  <data name="Common_Search" xml:space="preserve"><value>Search</value></data>
+
+</root>

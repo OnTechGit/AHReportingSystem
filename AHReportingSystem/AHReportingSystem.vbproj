@@ -50,6 +50,22 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Default VB.NET namespace imports (applied to every .vb file) -->
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Mvc" />
+    <Import Include="System.Web.Mvc.Ajax" />
+    <Import Include="System.Web.Mvc.Html" />
+    <Import Include="System.Web.Routing" />
+    <Import Include="System.Web.Optimization" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -72,22 +88,27 @@
     <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <!-- NuGet: Microsoft.AspNet.Razor -->
-    <Reference Include="System.Web.Razor, Version=3.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <!-- NuGet: Microsoft.AspNet.Razor (DLL assembly version is 3.0.0.0 — package version 3.2.9) -->
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <!-- NuGet: Microsoft.AspNet.WebPages -->
-    <Reference Include="System.Web.WebPages, Version=3.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <!-- NuGet: Microsoft.AspNet.Web.Optimization -->
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -135,7 +156,7 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0.0\lib\net40\Owin.dll</HintPath>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <!-- NuGet: Newtonsoft.Json -->
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -153,18 +174,44 @@
   <ItemGroup>
     <!-- App_Start -->
     <Compile Include="App_Start\BundleConfig.vb" />
+    <Compile Include="App_Start\CultureHelper.vb" />
     <Compile Include="App_Start\FilterConfig.vb" />
+    <Compile Include="App_Start\ForcePasswordChangeFilter.vb" />
     <Compile Include="App_Start\IdentityConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="App_Start\Startup.Auth.vb" />
     <!-- Controllers -->
     <Compile Include="Controllers\AccountController.vb" />
     <Compile Include="Controllers\BaseController.vb" />
+    <Compile Include="Controllers\CultureController.vb" />
     <Compile Include="Controllers\HomeController.vb" />
+    <Compile Include="Controllers\UsersController.vb" />
+    <!-- Resources (i18n) -->
+    <Compile Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.Designer.vb">
+      <DependentUpon>202604170448492_AddMustChangePasswordAndRoleCleanup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.vb" />
+    <Compile Include="Resources\Strings.Designer.vb" />
+    <EmbeddedResource Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.resx">
+      <DependentUpon>202604170448492_AddMustChangePasswordAndRoleCleanup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.resx" />
+    <EmbeddedResource Include="Resources\Strings.es.resx" />
     <!-- Models -->
+    <Compile Include="Migrations\202604170331498_InitialCreate.Designer.vb">
+      <DependentUpon>202604170331498_InitialCreate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604170331498_InitialCreate.vb" />
+    <Compile Include="Models\AccountCategory.vb" />
+    <Compile Include="Models\AccountGrouping.vb" />
+    <Compile Include="Models\AccountSubCategory.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\AppDbContext.vb" />
     <Compile Include="Models\IdentityModels.vb" />
+    <Compile Include="Models\SystemAccount.vb" />
+    <Compile Include="Models\ViewModels\UserViewModels.vb" />
+    <!-- Migrations -->
+    <Compile Include="Migrations\Configuration.vb" />
     <!-- Startup -->
     <Compile Include="Startup.vb" />
     <!-- My Project -->
@@ -176,10 +223,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <!-- Content files -->
-    <Content Include="Content\AdminLTE\css\adminlte.min.css" />
-    <Content Include="Content\AdminLTE\js\adminlte.min.js" />
-    <Content Include="Content\custom.css" />
+    <!-- App config / root -->
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Web.config" />
@@ -190,26 +234,81 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <!-- Views -->
+    <Content Include="Views\Account\ChangePassword.vbhtml" />
     <Content Include="Views\Account\LockScreen.vbhtml" />
     <Content Include="Views\Account\Login.vbhtml" />
     <Content Include="Views\Home\Index.vbhtml" />
     <Content Include="Views\Shared\_Layout.vbhtml" />
     <Content Include="Views\Shared\_LoginPartial.vbhtml" />
     <Content Include="Views\Shared\Error.vbhtml" />
+    <Content Include="Views\Users\Create.vbhtml" />
+    <Content Include="Views\Users\Edit.vbhtml" />
+    <Content Include="Views\Users\Index.vbhtml" />
     <Content Include="Views\_ViewStart.vbhtml" />
     <Content Include="Views\Web.config" />
-    <!-- Scripts -->
+    <!-- Custom + branding -->
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\img\ah-logo.png" />
+    <!-- AdminLTE 3.2 -->
+    <Content Include="Content\AdminLTE\css\adminlte.css" />
+    <Content Include="Content\AdminLTE\css\adminlte.min.css" />
+    <Content Include="Content\AdminLTE\js\adminlte.js" />
+    <Content Include="Content\AdminLTE\js\adminlte.min.js" />
+    <!-- Bootstrap 4 -->
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js" />
+    <!-- Font Awesome 5 -->
+    <Content Include="Content\fontawesome\css\all.css" />
+    <Content Include="Content\fontawesome\css\all.min.css" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
+    <!-- DataTables CSS (BS4 theme + buttons) -->
+    <Content Include="Content\datatables\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\datatables\buttons.bootstrap4.min.css" />
+    <!-- Select2 CSS -->
+    <Content Include="Content\select2\select2.min.css" />
+    <Content Include="Content\select2\select2-bootstrap4.min.css" />
+    <!-- SweetAlert2 CSS -->
+    <Content Include="Content\sweetalert2\sweetalert2.min.css" />
+    <!-- Scripts: jQuery + validation -->
+    <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <!-- Scripts: SweetAlert2 -->
+    <Content Include="Scripts\sweetalert2.all.min.js" />
+    <!-- Scripts: DataTables -->
+    <Content Include="Scripts\datatables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\datatables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\datatables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\datatables\buttons.html5.min.js" />
+    <Content Include="Scripts\datatables\jszip.min.js" />
+    <!-- Scripts: Select2 -->
+    <Content Include="Scripts\select2\select2.full.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\img\" />
-    <Folder Include="Content\AdminLTE\css\" />
-    <Folder Include="Content\AdminLTE\js\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202604170331498_InitialCreate.resx">
+      <DependentUpon>202604170331498_InitialCreate.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != '' And Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />

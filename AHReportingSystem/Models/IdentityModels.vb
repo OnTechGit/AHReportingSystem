@@ -6,7 +6,7 @@ Imports System.Threading.Tasks
 Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.EntityFramework
 
-Namespace AHReportingSystem.Models
+Namespace Models
 
     ' =========================================================
     ' ApplicationUser
@@ -26,6 +26,13 @@ Namespace AHReportingSystem.Models
 
         ''' <summary>Date the user was created</summary>
         Public Property CreatedAt As DateTime = DateTime.UtcNow
+
+        ''' <summary>
+        ''' When True, the user is redirected to ChangePassword on next login
+        ''' and cannot access the rest of the app until they change it.
+        ''' Set by admin when creating / resetting a user's password.
+        ''' </summary>
+        Public Property MustChangePassword As Boolean = False
 
         ''' <summary>
         ''' Generate a ClaimsIdentity for this user.

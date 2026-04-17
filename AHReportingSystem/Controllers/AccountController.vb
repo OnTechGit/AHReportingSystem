@@ -7,8 +7,9 @@ Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
 Imports AHReportingSystem.Models
+Imports AHReportingSystem.Resources
 
-Namespace AHReportingSystem.Controllers
+Namespace Controllers
 
     ''' <summary>
     ''' Handles authentication: Login, Logout, LockScreen.
@@ -21,7 +22,7 @@ Namespace AHReportingSystem.Controllers
         ' =====================================================
         <AllowAnonymous>
         Public Function Login(returnUrl As String) As ActionResult
-            ViewBag.ReturnUrl = returnUrl
+            ViewData("ReturnUrl") = returnUrl
             Return View()
         End Function
 
@@ -39,7 +40,7 @@ Namespace AHReportingSystem.Controllers
             ' Check if user exists and is active
             Dim user = Await UserManager.FindByEmailAsync(model.Email)
             If user Is Nothing OrElse Not user.IsActive Then
-                ModelState.AddModelError(String.Empty, "Invalid credentials or account is inactive.")
+                ModelState.AddModelError(String.Empty, Strings.SignIn_InvalidCreds)
                 Return View(model)
             End If
 
@@ -48,20 +49,61 @@ Namespace AHReportingSystem.Controllers
 
             Select Case result
                 Case SignInStatus.Success
-                    ' Update last login timestamp
                     user.LastLogin = DateTime.UtcNow
                     Await UserManager.UpdateAsync(user)
+                    ' Forced password change on first login (or after admin reset)
+                    If user.MustChangePassword Then
+                        Return RedirectToAction("ChangePassword", New With {.forced = True})
+                    End If
                     Return RedirectToLocal(returnUrl)
 
                 Case SignInStatus.LockedOut
-                    ModelState.AddModelError(String.Empty,
-                        "Your account has been locked. Please try again in 5 minutes.")
+                    ModelState.AddModelError(String.Empty, Strings.SignIn_LockedOut)
                     Return View(model)
 
                 Case Else
-                    ModelState.AddModelError(String.Empty, "Invalid email or password.")
+                    ModelState.AddModelError(String.Empty, Strings.SignIn_InvalidEmailOrPassword)
                     Return View(model)
             End Select
+        End Function
+
+        ' =====================================================
+        ' GET: /Account/ChangePassword
+        ' =====================================================
+        Public Function ChangePassword(forced As Boolean?) As ActionResult
+            ViewData("Forced") = forced.GetValueOrDefault(False)
+            Return View(New ChangePasswordViewModel())
+        End Function
+
+        ' =====================================================
+        ' POST: /Account/ChangePassword
+        ' =====================================================
+        <HttpPost>
+        <ValidateAntiForgeryToken>
+        Public Async Function ChangePassword(model As ChangePasswordViewModel) As Task(Of ActionResult)
+            Dim userId = CurrentUserId
+            Dim user = Await UserManager.FindByIdAsync(userId)
+            If user Is Nothing Then Return RedirectToAction("Login")
+
+            ViewData("Forced") = user.MustChangePassword
+
+            If Not ModelState.IsValid Then
+                Return View(model)
+            End If
+
+            Dim result = Await UserManager.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword)
+            If Not result.Succeeded Then
+                For Each msg In result.Errors
+                    ModelState.AddModelError(String.Empty, msg)
+                Next
+                Return View(model)
+            End If
+
+            user.MustChangePassword = False
+            Await UserManager.UpdateAsync(user)
+
+            SetSuccessMessage(Strings.ChangePassword_Success)
+            Return RedirectToAction("Index", "Home")
         End Function
 
         ' =====================================================
@@ -129,7 +171,7 @@ Namespace AHReportingSystem.Controllers
                 Session.Remove("LockScreenReturnUrl")
                 Return RedirectToLocal(If(returnUrl, "~/"))
             Else
-                ModelState.AddModelError(String.Empty, "Incorrect password. Please try again.")
+                ModelState.AddModelError(String.Empty, Strings.LockScreen_IncorrectPassword)
                 model.UserFullName = If(user.FullName, user.UserName)
                 model.UserEmail = user.Email
                 Return View(model)

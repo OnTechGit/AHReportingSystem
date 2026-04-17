@@ -1,84 +1,61 @@
 @ModelType AHReportingSystem.Models.LockScreenViewModel
+@Imports AHReportingSystem.Resources
 
 @Code
-    ViewBag.Title = "Session Locked"
-    Layout = Nothing  ' LockScreen has its own full-page layout
+    ViewBag.Title = Strings.LockScreen_Title
+    Layout = Nothing
+    Dim currentLang As String = CultureHelper.Current()
 End Code
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@currentLang">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Session Locked — AH Reporting System</title>
+    <title>@Strings.LockScreen_Title — @Strings.AppName</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    @System.Web.Optimization.Styles.Render("~/Content/adminlte")
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome/css/all.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/AdminLTE/css/adminlte.min.css")" />
     <style>
-        body {
-            background: linear-gradient(135deg, #006fa3 0%, #008bcc 50%, #00a8e0 100%);
-            min-height: 100vh;
-        }
-        .lockscreen-box {
-            margin-top: 0;
-        }
-        .lockscreen-logo a {
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .lockscreen-name {
-            color: #ffffff;
-        }
-        .btn-primary {
-            background-color: #008bcc !important;
-            border-color: #007aad !important;
-        }
-        .lockscreen-item {
-            border-radius: 8px;
-        }
-        .ah-lock-icon {
-            font-size: 3rem;
-            color: #008bcc;
-            margin-bottom: 10px;
-        }
+        body { background: linear-gradient(135deg, #006fa3 0%, #008bcc 50%, #00a8e0 100%); min-height: 100vh; }
+        .lockscreen-logo a { color: #ffffff; font-weight: 700; font-size: 2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .lockscreen-name { color: #ffffff; }
+        .btn-primary { background-color: #008bcc !important; border-color: #007aad !important; }
+        .lockscreen-item { border-radius: 8px; }
     </style>
 </head>
 <body class="hold-transition lockscreen">
 
 <div class="lockscreen-wrapper">
 
-    <!-- Logo -->
     <div class="lockscreen-logo">
         <a href="#">
             <img src="@Url.Content("~/Content/img/ah-logo.png")"
                  alt="AH"
                  style="max-height:50px; margin-right:10px; vertical-align:middle;" />
-            AH <b>Reporting</b>
+            @Strings.AppShortName
         </a>
     </div>
 
-    <!-- User locked info -->
     <div class="lockscreen-name">@Model.UserFullName</div>
 
-    <!-- Lock screen box -->
     <div class="lockscreen-item">
 
         <div class="lockscreen-image">
             <i class="fas fa-user-lock" style="font-size:2rem; color:#008bcc;"></i>
         </div>
 
-        @Using Html.BeginForm("LockScreen", "Account", FormMethod.Post)
+        <form action="@Url.Action("LockScreen", "Account")" method="post">
             @Html.AntiForgeryToken()
             @Html.HiddenFor(Function(m) m.ReturnUrl)
             @Html.HiddenFor(Function(m) m.UserEmail)
             @Html.HiddenFor(Function(m) m.UserFullName)
 
-            @<div class="input-group" style="min-width:220px;">
+            <div class="input-group" style="min-width:220px;">
                 @Html.PasswordFor(Function(m) m.Password,
                     New With {.class = "form-control",
-                              .placeholder = "Enter your password to unlock",
+                              .placeholder = Strings.LockScreen_EnterPassword,
                               .autofocus = "autofocus"})
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-warning">
@@ -88,31 +65,29 @@ End Code
             </div>
 
             @If Not Html.ViewData.ModelState.IsValid Then
-                @<div class="text-danger small mt-2">
-                    @Html.ValidationSummary(True)
-                </div>
+                @<div class="text-danger small mt-2">@Html.ValidationSummary(True)</div>
             End If
-
-        End Using
+        </form>
 
     </div>
 
-    <!-- Footer links -->
     <div class="help-block text-center mt-3">
         <a href="@Url.Action("LogOut", "Account")" class="text-white" style="opacity:0.8;"
-           onclick="return confirm('Are you sure you want to log out completely?')">
-            <i class="fas fa-sign-out-alt mr-1"></i> Sign out instead
+           onclick="return confirm('@Strings.LockScreen_SignOutConfirm')">
+            <i class="fas fa-sign-out-alt mr-1"></i> @Strings.LockScreen_SignOutInstead
         </a>
     </div>
 
     <div class="text-center mt-2" style="color:rgba(255,255,255,0.6); font-size:0.8rem;">
-        Your session was locked due to inactivity.
+        @Strings.LockScreen_InactivityMsg
     </div>
 
 </div>
 
-@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-@System.Web.Optimization.Scripts.Render("~/bundles/adminlte")
+<script src="@Url.Content("~/Scripts/jquery-3.7.1.min.js")"></script>
+<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.bundle.min.js")"></script>
+<script src="@Url.Content("~/Content/AdminLTE/js/adminlte.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 </body>
 </html>

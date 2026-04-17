@@ -1,25 +1,33 @@
-@Imports System.Web.Optimization
 @Imports System.Configuration
+@Imports AHReportingSystem.Resources
+
+@Code
+    Dim currentController As String = CStr(ViewContext.RouteData.Values("controller"))
+    Dim pageTitle As String = If(CStr(ViewBag.Title), "")
+    If String.IsNullOrEmpty(pageTitle) Then pageTitle = Strings.Nav_Dashboard
+    Dim breadcrumbParent As String = CStr(ViewBag.BreadcrumbParent)
+    Dim currentLang As String = CultureHelper.Current()
+    Dim returnUrl As String = Request.RawUrl
+End Code
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@currentLang">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>@If ViewBag.Title IsNot Nothing Then @ViewBag.Title Else @Html.Raw("Dashboard") End If — AH Reporting System</title>
+    <title>@pageTitle — @Strings.AppName</title>
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <!-- AdminLTE CSS -->
-    @Styles.Render("~/Content/adminlte")
-    <!-- DataTables CSS -->
-    @Styles.Render("~/Content/datatables")
-    <!-- Select2 CSS -->
-    @Styles.Render("~/Content/select2")
-    <!-- Custom AH styles (color override #008bcc) -->
-    @Styles.Render("~/Content/ahcustom")
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome/css/all.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/AdminLTE/css/adminlte.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/datatables/dataTables.bootstrap4.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/datatables/buttons.bootstrap4.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/select2/select2.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/select2/select2-bootstrap4.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/sweetalert2/sweetalert2.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom.css")" />
 
     @RenderSection("styles", required:=False)
 </head>
@@ -30,7 +38,6 @@
          NAVBAR (top bar)
     ==================================================== -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button">
@@ -39,9 +46,29 @@
             </li>
         </ul>
 
-        <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Current user -->
+
+            <!-- Language switcher -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#" title="@Strings.Nav_Language">
+                    <i class="fas fa-globe"></i>
+                    <span class="d-none d-sm-inline ml-1">@currentLang.ToUpper()</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="@Url.Action("Set", "Culture", New With {.lang = "en", .returnUrl = returnUrl})"
+                       class="dropdown-item @(If(currentLang = "en", "active", ""))">
+                        <i class="fas fa-check mr-2 @(If(currentLang = "en", "", "invisible"))"></i>
+                        @Strings.Common_English
+                    </a>
+                    <a href="@Url.Action("Set", "Culture", New With {.lang = "es", .returnUrl = returnUrl})"
+                       class="dropdown-item @(If(currentLang = "es", "active", ""))">
+                        <i class="fas fa-check mr-2 @(If(currentLang = "es", "", "invisible"))"></i>
+                        @Strings.Common_Spanish
+                    </a>
+                </div>
+            </li>
+
+            <!-- User menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-user"></i>
@@ -49,15 +76,15 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="@Url.Action("ChangePassword", "Account")" class="dropdown-item">
-                        <i class="fas fa-key mr-2"></i> Change Password
+                        <i class="fas fa-key mr-2"></i> @Strings.Nav_ChangePassword
                     </a>
                     <div class="dropdown-divider"></div>
-                    @Using Html.BeginForm("LogOut", "Account", FormMethod.Post)
+                    <form action="@Url.Action("LogOut", "Account")" method="post" class="m-0">
                         @Html.AntiForgeryToken()
-                        @<button type="submit" class="dropdown-item text-danger">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="fas fa-sign-out-alt mr-2"></i> @Strings.Nav_SignOut
                         </button>
-                    End Using
+                    </form>
                 </div>
             </li>
         </ul>
@@ -67,18 +94,14 @@
          SIDEBAR
     ==================================================== -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand / Logo -->
         <a href="@Url.Action("Index", "Home")" class="brand-link">
             <img src="@Url.Content("~/Content/img/ah-logo.png")"
                  alt="Alternative Holdings"
-                 class="brand-image img-circle elevation-3"
-                 style="opacity: .8; max-height:33px; width:auto;" />
-            <span class="brand-text font-weight-light">AH Reporting</span>
+                 class="brand-image elevation-3"
+                 style="opacity:.9; max-height:33px; width:auto;" />
+            <span class="brand-text font-weight-light">@Strings.AppShortName</span>
         </a>
-
-        <!-- Sidebar wrapper -->
         <div class="sidebar">
-            <!-- Sidebar user panel -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
                     <a href="#" class="d-block text-white">
@@ -87,53 +110,45 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Sidebar menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                    <!-- Dashboard -->
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "Home")"
-                           class="nav-link @If ViewContext.RouteData.Values("controller").ToString() = "Home" Then "active" End If">
+                           class="nav-link @(If(currentController = "Home", "active", ""))">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Dashboard</p>
+                            <p>@Strings.Nav_Dashboard</p>
                         </a>
                     </li>
 
-                    <!-- Accounts Catalog -->
-                    <li class="nav-item has-treeview @If ViewContext.RouteData.Values("controller").ToString() = "Accounts" Then "menu-open" End If">
-                        <a href="#" class="nav-link @If ViewContext.RouteData.Values("controller").ToString() = "Accounts" Then "active" End If">
+                    <li class="nav-item has-treeview @(If(currentController = "Accounts" OrElse currentController = "Categories", "menu-open", ""))">
+                        <a href="#" class="nav-link @(If(currentController = "Accounts" OrElse currentController = "Categories", "active", ""))">
                             <i class="nav-icon fas fa-book"></i>
-                            <p>
-                                Chart of Accounts
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                            <p>@Strings.Nav_ChartOfAccounts <i class="right fas fa-angle-left"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="@Url.Action("Index", "Accounts")" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>System Accounts</p>
+                                    <p>@Strings.Nav_SystemAccounts</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Index", "Categories")" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Categories</p>
+                                    <p>@Strings.Nav_Categories</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- Admin Section (Admin role only) -->
                     @If User.IsInRole("Admin") Then
-                        @<li class="nav-header">ADMINISTRATION</li>
+                        @<li class="nav-header">@Strings.Nav_Administration</li>
                         @<li class="nav-item">
                             <a href="@Url.Action("Index", "Users")"
-                               class="nav-link @If ViewContext.RouteData.Values("controller").ToString() = "Users" Then "active" End If">
+                               class="nav-link @(If(currentController = "Users", "active", ""))">
                                 <i class="nav-icon fas fa-users-cog"></i>
-                                <p>User Management</p>
+                                <p>@Strings.Nav_UserManagement</p>
                             </a>
                         </li>
                     End If
@@ -147,62 +162,46 @@
          CONTENT WRAPPER
     ==================================================== -->
     <div class="content-wrapper">
-        <!-- Content Header (Page title) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">@ViewBag.Title</h1>
+                        <h1 class="m-0">@pageTitle</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="@Url.Action("Index", "Home")">Home</a>
+                                <a href="@Url.Action("Index", "Home")">@Strings.Common_Home</a>
                             </li>
-                            @If ViewBag.BreadcrumbParent IsNot Nothing Then
-                                @<li class="breadcrumb-item">@ViewBag.BreadcrumbParent</li>
+                            @If Not String.IsNullOrEmpty(breadcrumbParent) Then
+                                @<li class="breadcrumb-item">@breadcrumbParent</li>
                             End If
-                            <li class="breadcrumb-item active">@ViewBag.Title</li>
+                            <li class="breadcrumb-item active">@pageTitle</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
 
-                <!-- Success message -->
                 @If TempData("SuccessMessage") IsNot Nothing Then
-                    @<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        @TempData("SuccessMessage")
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
+                    @<div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <i class="fas fa-check-circle mr-2"></i> @TempData("SuccessMessage")
                     </div>
                 End If
-
-                <!-- Error message -->
                 @If TempData("ErrorMessage") IsNot Nothing Then
-                    @<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        @TempData("ErrorMessage")
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
+                    @<div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <i class="fas fa-exclamation-circle mr-2"></i> @TempData("ErrorMessage")
                     </div>
                 End If
-
-                <!-- Warning message -->
                 @If TempData("WarningMessage") IsNot Nothing Then
-                    @<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        @TempData("WarningMessage")
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
+                    @<div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <i class="fas fa-exclamation-triangle mr-2"></i> @TempData("WarningMessage")
                     </div>
                 End If
 
@@ -212,60 +211,42 @@
         </section>
     </div>
 
-    <!-- ===================================================
-         FOOTER
-    ==================================================== -->
     <footer class="main-footer">
-        <strong>AH Reporting System</strong> &copy; @DateTime.Now.Year Alternative Holdings.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 1.0.0
-        </div>
+        <strong>@Strings.AppName</strong> &copy; @DateTime.Now.Year Alternative Holdings.
+        <div class="float-right d-none d-sm-inline-block"><b>@Strings.Common_Version</b> 1.0.0</div>
     </footer>
 
 </div>
 
-<!-- ===================================================
-     SCRIPTS
-==================================================== -->
-<!-- jQuery (must load first) -->
-@Scripts.Render("~/bundles/jquery")
-<!-- Bootstrap 4 bundle (includes Popper.js) -->
-@Scripts.Render("~/bundles/adminlte")
-<!-- DataTables -->
-@Scripts.Render("~/bundles/datatables")
-<!-- Select2 -->
-@Scripts.Render("~/bundles/select2")
-<!-- jQuery Validation -->
-@Scripts.Render("~/bundles/jqueryval")
+<script src="@Url.Content("~/Scripts/jquery-3.7.1.min.js")"></script>
+<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.bundle.min.js")"></script>
+<script src="@Url.Content("~/Content/AdminLTE/js/adminlte.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/dataTables.bootstrap4.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/jszip.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/dataTables.buttons.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/buttons.bootstrap4.min.js")"></script>
+<script src="@Url.Content("~/Scripts/datatables/buttons.html5.min.js")"></script>
+<script src="@Url.Content("~/Scripts/select2/select2.full.min.js")"></script>
+<script src="@Url.Content("~/Scripts/sweetalert2.all.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 
-<!-- ===================================================
-     LOCK SCREEN — Inactivity Timer
-==================================================== -->
 <script>
-    (function () {
-        // Read timeout from meta tag (set below) — in milliseconds
-        var timeoutMinutes = parseInt('@ConfigurationManager.AppSettings("LockScreenTimeoutMinutes")', 10) || 15;
-        var timeoutMs = timeoutMinutes * 60 * 1000;
-        var lockUrl = '@Url.Action("LockScreen", "Account")';
-        var timer;
-
-        if (timeoutMinutes <= 0) return; // 0 = disabled
-
-        function resetTimer() {
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                window.location.href = lockUrl;
-            }, timeoutMs);
-        }
-
-        // Events that reset inactivity timer
-        ['mousemove', 'keypress', 'click', 'scroll', 'touchstart'].forEach(function (evt) {
-            document.addEventListener(evt, resetTimer, true);
-        });
-
-        // Start the timer on page load
-        resetTimer();
-    })();
+(function () {
+    var mins = parseInt('@ConfigurationManager.AppSettings("LockScreenTimeoutMinutes")', 10) || 15;
+    if (mins <= 0) return;
+    var lockUrl = '@Url.Action("LockScreen", "Account")';
+    var timer;
+    function reset() {
+        clearTimeout(timer);
+        timer = setTimeout(function () { window.location.href = lockUrl; }, mins * 60000);
+    }
+    ['mousemove','keypress','click','scroll','touchstart'].forEach(function(e) {
+        document.addEventListener(e, reset, true);
+    });
+    reset();
+}());
 </script>
 
 @RenderSection("scripts", required:=False)

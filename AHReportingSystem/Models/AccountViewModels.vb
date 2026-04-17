@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports System.ComponentModel.DataAnnotations
 
-Namespace AHReportingSystem.Models
+Namespace Models
 
     ' =========================================================
     ' LoginViewModel

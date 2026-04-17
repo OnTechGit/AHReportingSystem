@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where msbuild.exe)",
+      "Read(//c/Program Files/Microsoft Visual Studio/2022/**)",
+      "Read(//c/Program Files/Microsoft Visual Studio//**)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft Visual Studio//**)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" AHReportingSystem.sln -nologo -v:minimal -p:Configuration=Debug)",
+      "Bash(rm -rf AHReportingSystem/bin/* AHReportingSystem/obj/*)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" AHReportingSystem.sln -nologo -v:minimal -t:Rebuild -p:Configuration=Debug)",
+      "Bash(xargs -n1 basename)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" AHReportingSystem/AHReportingSystem.vbproj -nologo -v:diag -t:ResolveAssemblyReferences -p:Configuration=Debug)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" AHReportingSystem/AHReportingSystem.vbproj -nologo -v:normal -t:Rebuild -p:Configuration=Debug)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" AHReportingSystem/AHReportingSystem.vbproj -nologo -v:normal -t:ResolveAssemblyReferences -p:Configuration=Debug)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" D:/Alexander/ProyectosIA/AHReporting/AHReportingSystem/AHReportingSystem.vbproj -nologo -v:normal -t:Rebuild -p:Configuration=Debug)"
+    ]
+  }
+}

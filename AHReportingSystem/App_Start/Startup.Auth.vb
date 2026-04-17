@@ -8,9 +8,7 @@ Imports Microsoft.Owin.Security.Cookies
 Imports Owin
 Imports AHReportingSystem.Models
 
-Namespace AHReportingSystem
-
-    Partial Public Class Startup
+Partial Public Class Startup
 
         ' Configure cookie-based authentication for the application.
         ' Called from Startup.vb -> Configuration()
@@ -38,6 +36,4 @@ Namespace AHReportingSystem
 
         End Sub
 
-    End Class
-
-End Namespace
+End Class

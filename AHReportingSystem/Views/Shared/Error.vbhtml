@@ -1,7 +1,8 @@
 @ModelType System.Web.Mvc.HandleErrorInfo
+@Imports AHReportingSystem.Resources
 
 @Code
-    ViewBag.Title = "Error"
+    ViewBag.Title = Strings.Error_Title
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
@@ -11,18 +12,15 @@ End Code
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-exclamation-triangle mr-2"></i>
-                    An Error Occurred
+                    @Strings.Error_Title
                 </h3>
             </div>
             <div class="card-body">
-                <p class="text-muted">
-                    An unexpected error occurred while processing your request.
-                    Please try again or contact your system administrator if the problem persists.
-                </p>
+                <p class="text-muted">@Strings.Error_Description</p>
             </div>
             <div class="card-footer">
                 <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
-                    <i class="fas fa-home mr-1"></i> Return to Dashboard
+                    <i class="fas fa-home mr-1"></i> @Strings.Error_ReturnToDashboard
                 </a>
             </div>
         </div>

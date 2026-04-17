@@ -7,9 +7,8 @@ Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.EntityFramework
 Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin
+Imports Microsoft.Owin.Security
 Imports AHReportingSystem.Models
-
-Namespace AHReportingSystem
 
     ' =========================================================
     ' ApplicationUserManager
@@ -95,6 +94,4 @@ Namespace AHReportingSystem
                 New RoleStore(Of IdentityRole)(context.Get(Of ApplicationDbContext)()))
         End Function
 
-    End Class
-
-End Namespace
+End Class

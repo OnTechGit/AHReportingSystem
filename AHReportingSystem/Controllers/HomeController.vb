@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports System.Web.Mvc
 
-Namespace AHReportingSystem.Controllers
+Namespace Controllers
 
     ''' <summary>
     ''' Home controller — Dashboard landing page after login.
