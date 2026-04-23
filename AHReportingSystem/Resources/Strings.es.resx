@@ -148,5 +148,66 @@
   <data name="Common_No" xml:space="preserve"><value>No</value></data>
   <data name="Common_Never" xml:space="preserve"><value>Nunca</value></data>
   <data name="Common_Search" xml:space="preserve"><value>Buscar</value></data>
+  <data name="Common_ExportExcel" xml:space="preserve"><value>Exportar a Excel</value></data>
+  <data name="Common_Required" xml:space="preserve"><value>Requerido</value></data>
+  <data name="Common_SelectOne" xml:space="preserve"><value>-- Seleccionar --</value></data>
+  <data name="Common_Status" xml:space="preserve"><value>Estado</value></data>
+  <data name="Common_Created" xml:space="preserve"><value>Creado exitosamente.</value></data>
+  <data name="Common_Updated" xml:space="preserve"><value>Actualizado exitosamente.</value></data>
+  <data name="Common_Activated" xml:space="preserve"><value>Registro activado.</value></data>
+  <data name="Common_Deactivated" xml:space="preserve"><value>Registro desactivado.</value></data>
+  <data name="Common_NotFound" xml:space="preserve"><value>Registro no encontrado.</value></data>
+
+  <data name="Accounts_Title" xml:space="preserve"><value>Cuentas del Sistema</value></data>
+  <data name="Accounts_New" xml:space="preserve"><value>Nueva Cuenta</value></data>
+  <data name="Accounts_Create" xml:space="preserve"><value>Crear Cuenta</value></data>
+  <data name="Accounts_Edit" xml:space="preserve"><value>Editar Cuenta</value></data>
+  <data name="Accounts_Col_Id" xml:space="preserve"><value>ID Cuenta</value></data>
+  <data name="Accounts_Col_Name" xml:space="preserve"><value>Nombre de la Cuenta</value></data>
+  <data name="Accounts_Col_Category" xml:space="preserve"><value>Categoría</value></data>
+  <data name="Accounts_Col_SubCategory" xml:space="preserve"><value>Sub-Categoría</value></data>
+  <data name="Accounts_Col_Grouping" xml:space="preserve"><value>Agrupación</value></data>
+  <data name="Accounts_Col_Active" xml:space="preserve"><value>Activo</value></data>
+  <data name="Accounts_IdTaken" xml:space="preserve"><value>Ya existe una cuenta con este ID.</value></data>
+  <data name="Accounts_SubCategoryMismatch" xml:space="preserve"><value>La sub-categoría seleccionada no pertenece a la categoría elegida.</value></data>
+  <data name="Accounts_ExportFileName" xml:space="preserve"><value>CuentasDelSistema</value></data>
+
+  <data name="Categories_Title" xml:space="preserve"><value>Categorías</value></data>
+  <data name="Categories_New" xml:space="preserve"><value>Nueva Categoría</value></data>
+  <data name="Categories_Create" xml:space="preserve"><value>Crear Categoría</value></data>
+  <data name="Categories_Edit" xml:space="preserve"><value>Editar Categoría</value></data>
+  <data name="Categories_NameTaken" xml:space="preserve"><value>Ya existe una categoría con ese nombre.</value></data>
+  <data name="Categories_InUse" xml:space="preserve"><value>La categoría está en uso y no puede desactivarse mientras existan cuentas que la referencian.</value></data>
+
+  <data name="SubCategories_Title" xml:space="preserve"><value>Sub-Categorías</value></data>
+  <data name="SubCategories_New" xml:space="preserve"><value>Nueva Sub-Categoría</value></data>
+  <data name="SubCategories_Create" xml:space="preserve"><value>Crear Sub-Categoría</value></data>
+  <data name="SubCategories_Edit" xml:space="preserve"><value>Editar Sub-Categoría</value></data>
+  <data name="SubCategories_NameTaken" xml:space="preserve"><value>Ya existe una sub-categoría con ese nombre en la categoría seleccionada.</value></data>
+
+  <data name="Groupings_Title" xml:space="preserve"><value>Agrupaciones</value></data>
+  <data name="Groupings_New" xml:space="preserve"><value>Nueva Agrupación</value></data>
+  <data name="Groupings_Create" xml:space="preserve"><value>Crear Agrupación</value></data>
+  <data name="Groupings_Edit" xml:space="preserve"><value>Editar Agrupación</value></data>
+  <data name="Groupings_NameTaken" xml:space="preserve"><value>Ya existe una agrupación con ese nombre.</value></data>
+
+  <data name="Field_Name" xml:space="preserve"><value>Nombre</value></data>
+  <data name="Field_Active" xml:space="preserve"><value>Activo</value></data>
+
+  <data name="Companies_Title" xml:space="preserve"><value>Empresas</value></data>
+  <data name="Companies_New" xml:space="preserve"><value>Nueva Empresa</value></data>
+  <data name="Companies_Create" xml:space="preserve"><value>Crear Empresa</value></data>
+  <data name="Companies_Edit" xml:space="preserve"><value>Editar Empresa</value></data>
+  <data name="Companies_Col_Code" xml:space="preserve"><value>Código</value></data>
+  <data name="Companies_Col_Name" xml:space="preserve"><value>Nombre</value></data>
+  <data name="Companies_CodeTaken" xml:space="preserve"><value>Ya existe una empresa con este código.</value></data>
+  <data name="Companies_CodeHint" xml:space="preserve"><value>Identificador corto usado en cargas y reportes (ej. "AH01"). Se guarda en mayúsculas.</value></data>
+
+  <data name="Nav_Companies" xml:space="preserve"><value>Empresas</value></data>
+
+  <data name="Users_CompanyAccess" xml:space="preserve"><value>Acceso a Empresas</value></data>
+  <data name="Users_CompanyAccess_AdminHint" xml:space="preserve"><value>Los administradores tienen acceso automático a todas las empresas.</value></data>
+  <data name="Users_CompanyAccess_AllIfEmpty" xml:space="preserve"><value>Dejar vacío para acceso a todas las empresas.</value></data>
+  <data name="Users_NoAccessToCompany" xml:space="preserve"><value>No tienes acceso a esta empresa.</value></data>
 
 </root>

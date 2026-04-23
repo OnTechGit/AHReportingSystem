@@ -483,6 +483,285 @@ Namespace Resources
                 Return L("Common_Search")
             End Get
         End Property
+        Public ReadOnly Property Common_ExportExcel As String
+            Get
+                Return L("Common_ExportExcel")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Required As String
+            Get
+                Return L("Common_Required")
+            End Get
+        End Property
+        Public ReadOnly Property Common_SelectOne As String
+            Get
+                Return L("Common_SelectOne")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Status As String
+            Get
+                Return L("Common_Status")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Created As String
+            Get
+                Return L("Common_Created")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Updated As String
+            Get
+                Return L("Common_Updated")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Activated As String
+            Get
+                Return L("Common_Activated")
+            End Get
+        End Property
+        Public ReadOnly Property Common_Deactivated As String
+            Get
+                Return L("Common_Deactivated")
+            End Get
+        End Property
+        Public ReadOnly Property Common_NotFound As String
+            Get
+                Return L("Common_NotFound")
+            End Get
+        End Property
+
+        ' ---------- System Accounts ----------
+        Public ReadOnly Property Accounts_Title As String
+            Get
+                Return L("Accounts_Title")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_New As String
+            Get
+                Return L("Accounts_New")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Create As String
+            Get
+                Return L("Accounts_Create")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Edit As String
+            Get
+                Return L("Accounts_Edit")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_Id As String
+            Get
+                Return L("Accounts_Col_Id")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_Name As String
+            Get
+                Return L("Accounts_Col_Name")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_Category As String
+            Get
+                Return L("Accounts_Col_Category")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_SubCategory As String
+            Get
+                Return L("Accounts_Col_SubCategory")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_Grouping As String
+            Get
+                Return L("Accounts_Col_Grouping")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_Col_Active As String
+            Get
+                Return L("Accounts_Col_Active")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_IdTaken As String
+            Get
+                Return L("Accounts_IdTaken")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_SubCategoryMismatch As String
+            Get
+                Return L("Accounts_SubCategoryMismatch")
+            End Get
+        End Property
+        Public ReadOnly Property Accounts_ExportFileName As String
+            Get
+                Return L("Accounts_ExportFileName")
+            End Get
+        End Property
+
+        ' ---------- Categories ----------
+        Public ReadOnly Property Categories_Title As String
+            Get
+                Return L("Categories_Title")
+            End Get
+        End Property
+        Public ReadOnly Property Categories_New As String
+            Get
+                Return L("Categories_New")
+            End Get
+        End Property
+        Public ReadOnly Property Categories_Create As String
+            Get
+                Return L("Categories_Create")
+            End Get
+        End Property
+        Public ReadOnly Property Categories_Edit As String
+            Get
+                Return L("Categories_Edit")
+            End Get
+        End Property
+        Public ReadOnly Property Categories_NameTaken As String
+            Get
+                Return L("Categories_NameTaken")
+            End Get
+        End Property
+        Public ReadOnly Property Categories_InUse As String
+            Get
+                Return L("Categories_InUse")
+            End Get
+        End Property
+
+        ' ---------- Sub-Categories ----------
+        Public ReadOnly Property SubCategories_Title As String
+            Get
+                Return L("SubCategories_Title")
+            End Get
+        End Property
+        Public ReadOnly Property SubCategories_New As String
+            Get
+                Return L("SubCategories_New")
+            End Get
+        End Property
+        Public ReadOnly Property SubCategories_Create As String
+            Get
+                Return L("SubCategories_Create")
+            End Get
+        End Property
+        Public ReadOnly Property SubCategories_Edit As String
+            Get
+                Return L("SubCategories_Edit")
+            End Get
+        End Property
+        Public ReadOnly Property SubCategories_NameTaken As String
+            Get
+                Return L("SubCategories_NameTaken")
+            End Get
+        End Property
+
+        ' ---------- Groupings ----------
+        Public ReadOnly Property Groupings_Title As String
+            Get
+                Return L("Groupings_Title")
+            End Get
+        End Property
+        Public ReadOnly Property Groupings_New As String
+            Get
+                Return L("Groupings_New")
+            End Get
+        End Property
+        Public ReadOnly Property Groupings_Create As String
+            Get
+                Return L("Groupings_Create")
+            End Get
+        End Property
+        Public ReadOnly Property Groupings_Edit As String
+            Get
+                Return L("Groupings_Edit")
+            End Get
+        End Property
+        Public ReadOnly Property Groupings_NameTaken As String
+            Get
+                Return L("Groupings_NameTaken")
+            End Get
+        End Property
+
+        ' ---------- Shared field labels ----------
+        Public ReadOnly Property Field_Name As String
+            Get
+                Return L("Field_Name")
+            End Get
+        End Property
+        Public ReadOnly Property Field_Active As String
+            Get
+                Return L("Field_Active")
+            End Get
+        End Property
+
+        ' ---------- Companies ----------
+        Public ReadOnly Property Companies_Title As String
+            Get
+                Return L("Companies_Title")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_New As String
+            Get
+                Return L("Companies_New")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_Create As String
+            Get
+                Return L("Companies_Create")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_Edit As String
+            Get
+                Return L("Companies_Edit")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_Col_Code As String
+            Get
+                Return L("Companies_Col_Code")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_Col_Name As String
+            Get
+                Return L("Companies_Col_Name")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_CodeTaken As String
+            Get
+                Return L("Companies_CodeTaken")
+            End Get
+        End Property
+        Public ReadOnly Property Companies_CodeHint As String
+            Get
+                Return L("Companies_CodeHint")
+            End Get
+        End Property
+        Public ReadOnly Property Nav_Companies As String
+            Get
+                Return L("Nav_Companies")
+            End Get
+        End Property
+
+        ' ---------- User / company access ----------
+        Public ReadOnly Property Users_CompanyAccess As String
+            Get
+                Return L("Users_CompanyAccess")
+            End Get
+        End Property
+        Public ReadOnly Property Users_CompanyAccess_AdminHint As String
+            Get
+                Return L("Users_CompanyAccess_AdminHint")
+            End Get
+        End Property
+        Public ReadOnly Property Users_CompanyAccess_AllIfEmpty As String
+            Get
+                Return L("Users_CompanyAccess_AllIfEmpty")
+            End Get
+        End Property
+        Public ReadOnly Property Users_NoAccessToCompany As String
+            Get
+                Return L("Users_NoAccessToCompany")
+            End Get
+        End Property
 
         ''' <summary>Localized label for a role DB identifier ("Admin" | "Supervisor" | "User").</summary>
         Public Function RoleLabel(roleId As String) As String

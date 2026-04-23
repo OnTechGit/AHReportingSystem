@@ -57,6 +57,12 @@ Namespace Models.ViewModels
         <Display(Name:="Active")>
         Public Property IsActive As Boolean
 
+        ''' <summary>
+        ''' CompanyIds this user is restricted to. Empty = unrestricted (all companies).
+        ''' Ignored when Role = "Admin" (admins always see all).
+        ''' </summary>
+        Public Property CompanyIds As Integer() = New Integer() {}
+
     End Class
 
     ''' <summary>Admin resets a user's password — user will be forced to change on next login.</summary>

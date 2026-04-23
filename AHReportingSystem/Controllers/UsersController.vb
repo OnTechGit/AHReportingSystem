@@ -1,6 +1,7 @@
 Option Strict On
 Option Explicit On
 
+Imports System.Data.Entity
 Imports System.Threading.Tasks
 Imports System.Web.Mvc
 Imports Microsoft.AspNet.Identity
@@ -13,10 +14,18 @@ Namespace Controllers
     ''' <summary>
     ''' Admin-only CRUD for application users.
     ''' Single role per user; soft-delete via IsActive.
+    ''' Also manages per-user company access (UserCompany join).
     ''' </summary>
     <Authorize(Roles:="Admin")>
     Public Class UsersController
         Inherits BaseController
+
+        Private ReadOnly _db As New ApplicationDbContext()
+
+        Protected Overrides Sub Dispose(disposing As Boolean)
+            If disposing Then _db.Dispose()
+            MyBase.Dispose(disposing)
+        End Sub
 
         ' ========== GET: /Users =============================
         Public Function Index() As ActionResult
@@ -92,14 +101,20 @@ Namespace Controllers
             If user Is Nothing Then Return HttpNotFound()
 
             Dim roles = Await UserManager.GetRolesAsync(id)
+            Dim companyIds = Await _db.UserCompanies _
+                .Where(Function(uc) uc.UserId = id) _
+                .Select(Function(uc) uc.CompanyId).ToArrayAsync()
+
             Dim model As New EditUserViewModel With {
                 .Id = user.Id,
                 .Email = user.Email,
                 .FullName = user.FullName,
                 .Role = If(roles.FirstOrDefault(), "User"),
-                .IsActive = user.IsActive
+                .IsActive = user.IsActive,
+                .CompanyIds = companyIds
             }
             PopulateRoles()
+            Await PopulateCompanies(model.CompanyIds)
             Return View(model)
         End Function
 
@@ -109,6 +124,7 @@ Namespace Controllers
         Public Async Function Edit(model As EditUserViewModel) As Task(Of ActionResult)
             If Not ModelState.IsValid Then
                 PopulateRoles()
+                Await PopulateCompanies(model.CompanyIds)
                 Return View(model)
             End If
 
@@ -117,18 +133,18 @@ Namespace Controllers
 
             Dim isSelf = (user.Id = CurrentUserId)
 
-            ' Email uniqueness (another user with same email)
             Dim existing = Await UserManager.FindByEmailAsync(model.Email)
             If existing IsNot Nothing AndAlso existing.Id <> user.Id Then
                 ModelState.AddModelError("Email", Strings.Users_EmailTaken)
                 PopulateRoles()
+                Await PopulateCompanies(model.CompanyIds)
                 Return View(model)
             End If
 
-            ' Self-protection: cannot deactivate self or change own role
             If isSelf AndAlso Not model.IsActive Then
                 ModelState.AddModelError(String.Empty, Strings.Users_CannotDeactivateSelf)
                 PopulateRoles()
+                Await PopulateCompanies(model.CompanyIds)
                 Return View(model)
             End If
             Dim currentRoles = Await UserManager.GetRolesAsync(user.Id)
@@ -136,6 +152,7 @@ Namespace Controllers
             If isSelf AndAlso model.Role <> currentRole Then
                 ModelState.AddModelError(String.Empty, Strings.Users_CannotChangeSelfRole)
                 PopulateRoles()
+                Await PopulateCompanies(model.CompanyIds)
                 Return View(model)
             End If
 
@@ -150,6 +167,7 @@ Namespace Controllers
                     ModelState.AddModelError(String.Empty, em)
                 Next
                 PopulateRoles()
+                Await PopulateCompanies(model.CompanyIds)
                 Return View(model)
             End If
 
@@ -160,6 +178,11 @@ Namespace Controllers
                 End If
                 Await UserManager.AddToRoleAsync(user.Id, model.Role)
             End If
+
+            ' Sync UserCompany rows.
+            ' Admins always have universal access — clear any stale rows.
+            ' For non-admins, replace the set with what the form sent.
+            Await SyncUserCompanies(user.Id, If(model.Role = "Admin", New Integer() {}, If(model.CompanyIds, New Integer() {})))
 
             SetSuccessMessage(Strings.Users_Updated)
             Return RedirectToAction("Index")
@@ -222,6 +245,51 @@ Namespace Controllers
                 New SelectListItem With {.Value = "User", .Text = Strings.Role_User}
             }
         End Sub
+
+        Private Async Function PopulateCompanies(selectedIds As IEnumerable(Of Integer)) As Task
+            Dim sel As New HashSet(Of Integer)(If(selectedIds, Enumerable.Empty(Of Integer)()))
+            Dim rows = Await _db.Companies _
+                .Where(Function(c) c.Active) _
+                .OrderBy(Function(c) c.Code) _
+                .Select(Function(c) New With {c.CompanyId, c.Code, c.Name}) _
+                .ToListAsync()
+            ViewData("AllCompanies") = rows _
+                .Select(Function(c) New SelectListItem With {
+                    .Value = c.CompanyId.ToString(),
+                    .Text = c.Code & " — " & c.Name,
+                    .Selected = sel.Contains(c.CompanyId)
+                }).ToList()
+        End Function
+
+        ''' <summary>
+        ''' Replaces the user's UserCompany rows with the given set.
+        ''' Pass an empty array to leave the user unrestricted (no rows).
+        ''' </summary>
+        Private Async Function SyncUserCompanies(userId As String, newCompanyIds As Integer()) As Task
+            Dim current = Await _db.UserCompanies _
+                .Where(Function(uc) uc.UserId = userId) _
+                .ToListAsync()
+            Dim currentIds = current.Select(Function(uc) uc.CompanyId).ToList()
+            Dim desiredIds = newCompanyIds.Distinct().ToList()
+
+            Dim toRemove = current.Where(Function(uc) Not desiredIds.Contains(uc.CompanyId)).ToList()
+            Dim toAdd = desiredIds.Where(Function(id) Not currentIds.Contains(id)).ToList()
+
+            For Each uc In toRemove
+                _db.UserCompanies.Remove(uc)
+            Next
+            For Each id In toAdd
+                _db.UserCompanies.Add(New UserCompany With {
+                    .UserId = userId,
+                    .CompanyId = id,
+                    .GrantedBy = CurrentUserName,
+                    .GrantedAt = DateTime.UtcNow
+                })
+            Next
+            If toRemove.Count > 0 OrElse toAdd.Count > 0 Then
+                Await _db.SaveChangesAsync()
+            End If
+        End Function
 
     End Class
 

@@ -67,6 +67,51 @@ Namespace Controllers
         End Property
 
         ' =====================================================
+        ' Company access control
+        ' Admins are always unrestricted by role.
+        ' Non-Admins with zero UserCompany rows are unrestricted (see all).
+        ' Non-Admins with rows are restricted to that set.
+        ' =====================================================
+        Private _allowedCompanyIdsQueried As Boolean
+        Private _allowedCompanyIds As List(Of Integer)
+
+        ''' <summary>
+        ''' Returns the CompanyIds the current user may access, or Nothing if unrestricted (Admin or no UserCompany rows).
+        ''' Result is cached per controller instance.
+        ''' </summary>
+        Public Function GetAllowedCompanyIds() As List(Of Integer)
+            If _allowedCompanyIdsQueried Then Return _allowedCompanyIds
+            _allowedCompanyIdsQueried = True
+
+            If User.IsInRole("Admin") Then
+                _allowedCompanyIds = Nothing
+                Return Nothing
+            End If
+
+            Dim uid = CurrentUserId
+            If String.IsNullOrEmpty(uid) Then
+                _allowedCompanyIds = Nothing
+                Return Nothing
+            End If
+
+            Using ctx As New ApplicationDbContext()
+                Dim ids = ctx.UserCompanies _
+                    .Where(Function(uc) uc.UserId = uid) _
+                    .Select(Function(uc) uc.CompanyId) _
+                    .ToList()
+                _allowedCompanyIds = If(ids.Count = 0, Nothing, ids)
+            End Using
+            Return _allowedCompanyIds
+        End Function
+
+        ''' <summary>True if the current user may access the given company.</summary>
+        Public Function CanAccessCompany(companyId As Integer) As Boolean
+            Dim allowed = GetAllowedCompanyIds()
+            If allowed Is Nothing Then Return True
+            Return allowed.Contains(companyId)
+        End Function
+
+        ' =====================================================
         ' TempData helpers for success/error messages
         ' =====================================================
         Protected Sub SetSuccessMessage(message As String)

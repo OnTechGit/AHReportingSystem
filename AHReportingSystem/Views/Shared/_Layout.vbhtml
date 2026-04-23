@@ -1,4 +1,5 @@
 @Imports System.Configuration
+@Imports System.Security.Claims
 @Imports AHReportingSystem.Resources
 
 @Code
@@ -8,6 +9,17 @@
     Dim breadcrumbParent As String = CStr(ViewBag.BreadcrumbParent)
     Dim currentLang As String = CultureHelper.Current()
     Dim returnUrl As String = Request.RawUrl
+
+    ' Prefer the FullName claim (added by ApplicationUser.GenerateUserIdentityAsync)
+    ' so the top navbar shows the person's name, not their email.
+    Dim userDisplayName As String = User.Identity.Name
+    Dim claimsIdent As ClaimsIdentity = TryCast(User.Identity, ClaimsIdentity)
+    If claimsIdent IsNot Nothing Then
+        Dim nameClaim = claimsIdent.FindFirst("FullName")
+        If nameClaim IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(nameClaim.Value) Then
+            userDisplayName = nameClaim.Value
+        End If
+    End If
 End Code
 
 <!DOCTYPE html>
@@ -72,7 +84,7 @@ End Code
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-user"></i>
-                    <span class="d-none d-sm-inline ml-1">@User.Identity.Name</span>
+                    <span class="d-none d-sm-inline ml-1">@userDisplayName</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="@Url.Action("ChangePassword", "Account")" class="dropdown-item">
@@ -102,14 +114,6 @@ End Code
             <span class="brand-text font-weight-light">@Strings.AppShortName</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="info">
-                    <a href="#" class="d-block text-white">
-                        <i class="fas fa-user-circle mr-1"></i>
-                        @User.Identity.Name
-                    </a>
-                </div>
-            </div>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
@@ -121,22 +125,45 @@ End Code
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview @(If(currentController = "Accounts" OrElse currentController = "Categories", "menu-open", ""))">
-                        <a href="#" class="nav-link @(If(currentController = "Accounts" OrElse currentController = "Categories", "active", ""))">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Companies")"
+                           class="nav-link @(If(currentController = "Companies", "active", ""))">
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>@Strings.Nav_Companies</p>
+                        </a>
+                    </li>
+
+                    @Code
+                        Dim inChart As Boolean = currentController = "Accounts" OrElse currentController = "Categories" OrElse currentController = "SubCategories" OrElse currentController = "Groupings"
+                    End Code
+                    <li class="nav-item has-treeview @(If(inChart, "menu-open", ""))">
+                        <a href="#" class="nav-link @(If(inChart, "active", ""))">
                             <i class="nav-icon fas fa-book"></i>
                             <p>@Strings.Nav_ChartOfAccounts <i class="right fas fa-angle-left"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="@Url.Action("Index", "Accounts")" class="nav-link">
+                                <a href="@Url.Action("Index", "Accounts")" class="nav-link @(If(currentController = "Accounts", "active", ""))">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>@Strings.Nav_SystemAccounts</p>
+                                    <p>@Strings.Accounts_Title</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="@Url.Action("Index", "Categories")" class="nav-link">
+                                <a href="@Url.Action("Index", "Categories")" class="nav-link @(If(currentController = "Categories", "active", ""))">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>@Strings.Nav_Categories</p>
+                                    <p>@Strings.Categories_Title</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "SubCategories")" class="nav-link @(If(currentController = "SubCategories", "active", ""))">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>@Strings.SubCategories_Title</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Groupings")" class="nav-link @(If(currentController = "Groupings", "active", ""))">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>@Strings.Groupings_Title</p>
                                 </a>
                             </li>
                         </ul>

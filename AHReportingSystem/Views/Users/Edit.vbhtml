@@ -5,6 +5,7 @@
     ViewBag.Title = Strings.Users_Edit
     ViewBag.BreadcrumbParent = Strings.Users_Title
     Dim roles As IEnumerable(Of SelectListItem) = DirectCast(ViewData("Roles"), IEnumerable(Of SelectListItem))
+    Dim companyItems As IEnumerable(Of SelectListItem) = If(TryCast(ViewData("AllCompanies"), IEnumerable(Of SelectListItem)), Enumerable.Empty(Of SelectListItem)())
 End Code
 
 <div class="row justify-content-center">
@@ -48,6 +49,23 @@ End Code
                             <label class="custom-control-label" for="IsActive">@Strings.Users_Col_Active</label>
                         </div>
                     </div>
+
+                    <hr />
+                    <h5><i class="fas fa-building mr-2"></i> @Strings.Users_CompanyAccess</h5>
+
+                    <div id="companyAccessAdminNotice" class="alert alert-info" style="display:none;">
+                        <i class="fas fa-info-circle mr-2"></i> @Strings.Users_CompanyAccess_AdminHint
+                    </div>
+
+                    <div id="companyAccessRestrictable" class="form-group">
+                        <select name="CompanyIds" multiple="multiple" class="form-control select2-companies" style="width:100%">
+                            @For Each item In companyItems
+                                Dim isSel As Boolean = item.Selected
+                                @<option value="@item.Value" selected="@isSel">@item.Text</option>
+                            Next
+                        </select>
+                        <small class="form-text text-muted">@Strings.Users_CompanyAccess_AllIfEmpty</small>
+                    </div>
                 </div>
 
                 <div class="card-footer">
@@ -86,3 +104,24 @@ End Code
 
     </div>
 </div>
+
+@Section scripts
+    <script>
+        $(function () {
+            $('.select2-companies').select2({ theme: 'bootstrap4', placeholder: '@Strings.Common_SelectOne' });
+
+            function applyRole(role) {
+                if (role === 'Admin') {
+                    $('#companyAccessRestrictable').hide();
+                    $('#companyAccessAdminNotice').show();
+                } else {
+                    $('#companyAccessRestrictable').show();
+                    $('#companyAccessAdminNotice').hide();
+                }
+            }
+
+            applyRole($('#Role').val());
+            $('#Role').on('change', function () { applyRole($(this).val()); });
+        });
+    </script>
+End Section

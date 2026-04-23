@@ -35,6 +35,13 @@ Namespace Models
         Public Property MustChangePassword As Boolean = False
 
         ''' <summary>
+        ''' Companies this user is restricted to (join table).
+        ''' Admins ignore this — they always see all. Non-Admins with zero rows
+        ''' are unrestricted (all companies).
+        ''' </summary>
+        Public Overridable Property UserCompanies As ICollection(Of UserCompany)
+
+        ''' <summary>
         ''' Generate a ClaimsIdentity for this user.
         ''' This is used by OWIN cookie middleware.
         ''' </summary>

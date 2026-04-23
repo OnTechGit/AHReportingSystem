@@ -12,10 +12,16 @@ Namespace Models
     ''' </summary>
     Public Class SystemAccount
 
+        ''' <summary>
+        ''' Alphanumeric account ID (manually assigned, not identity).
+        ''' Max 20 chars; letters, digits, dashes, underscores, spaces and dots allowed.
+        ''' Stored upper-cased — see AccountsController normalization.
+        ''' </summary>
         <Key>
         <DatabaseGenerated(DatabaseGeneratedOption.None)>
+        <StringLength(20)>
         <Display(Name:="Account ID")>
-        Public Property IdCuenta As Integer
+        Public Property IdCuenta As String
 
         <Required>
         <StringLength(200)>

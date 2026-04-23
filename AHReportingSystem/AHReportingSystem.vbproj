@@ -182,18 +182,44 @@
     <Compile Include="App_Start\Startup.Auth.vb" />
     <!-- Controllers -->
     <Compile Include="Controllers\AccountController.vb" />
+    <Compile Include="Controllers\AccountsController.vb" />
     <Compile Include="Controllers\BaseController.vb" />
+    <Compile Include="Controllers\CategoriesController.vb" />
+    <Compile Include="Controllers\CompaniesController.vb" />
     <Compile Include="Controllers\CultureController.vb" />
+    <Compile Include="Controllers\GroupingsController.vb" />
     <Compile Include="Controllers\HomeController.vb" />
+    <Compile Include="Controllers\SubCategoriesController.vb" />
     <Compile Include="Controllers\UsersController.vb" />
     <!-- Resources (i18n) -->
     <Compile Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.Designer.vb">
       <DependentUpon>202604170448492_AddMustChangePasswordAndRoleCleanup.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.vb" />
+    <Compile Include="Migrations\202604170630567_AddMustChangePasswordAndRoleCleanup1.Designer.vb">
+      <DependentUpon>202604170630567_AddMustChangePasswordAndRoleCleanup1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604170630567_AddMustChangePasswordAndRoleCleanup1.vb" />
+    <Compile Include="Migrations\202604231441471_ChangeIdCuentaToString.Designer.vb">
+      <DependentUpon>202604231441471_ChangeIdCuentaToString.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604231441471_ChangeIdCuentaToString.vb" />
+    <Compile Include="Migrations\202604231519203_AddUserCompanyTable.Designer.vb">
+      <DependentUpon>202604231519203_AddUserCompanyTable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604231519203_AddUserCompanyTable.vb" />
     <Compile Include="Resources\Strings.Designer.vb" />
     <EmbeddedResource Include="Migrations\202604170448492_AddMustChangePasswordAndRoleCleanup.resx">
       <DependentUpon>202604170448492_AddMustChangePasswordAndRoleCleanup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604170630567_AddMustChangePasswordAndRoleCleanup1.resx">
+      <DependentUpon>202604170630567_AddMustChangePasswordAndRoleCleanup1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604231441471_ChangeIdCuentaToString.resx">
+      <DependentUpon>202604231441471_ChangeIdCuentaToString.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604231519203_AddUserCompanyTable.resx">
+      <DependentUpon>202604231519203_AddUserCompanyTable.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx" />
     <EmbeddedResource Include="Resources\Strings.es.resx" />
@@ -207,8 +233,13 @@
     <Compile Include="Models\AccountSubCategory.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\AppDbContext.vb" />
+    <Compile Include="Models\Company.vb" />
     <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="Models\SystemAccount.vb" />
+    <Compile Include="Models\UserCompany.vb" />
+    <Compile Include="Models\ViewModels\CatalogViewModels.vb" />
+    <Compile Include="Models\ViewModels\CompanyViewModels.vb" />
+    <Compile Include="Models\ViewModels\SystemAccountViewModels.vb" />
     <Compile Include="Models\ViewModels\UserViewModels.vb" />
     <!-- Migrations -->
     <Compile Include="Migrations\Configuration.vb" />
@@ -241,6 +272,21 @@
     <Content Include="Views\Shared\_Layout.vbhtml" />
     <Content Include="Views\Shared\_LoginPartial.vbhtml" />
     <Content Include="Views\Shared\Error.vbhtml" />
+    <Content Include="Views\Accounts\Create.vbhtml" />
+    <Content Include="Views\Accounts\Edit.vbhtml" />
+    <Content Include="Views\Accounts\Index.vbhtml" />
+    <Content Include="Views\Categories\Create.vbhtml" />
+    <Content Include="Views\Categories\Edit.vbhtml" />
+    <Content Include="Views\Categories\Index.vbhtml" />
+    <Content Include="Views\Companies\Create.vbhtml" />
+    <Content Include="Views\Companies\Edit.vbhtml" />
+    <Content Include="Views\Companies\Index.vbhtml" />
+    <Content Include="Views\Groupings\Create.vbhtml" />
+    <Content Include="Views\Groupings\Edit.vbhtml" />
+    <Content Include="Views\Groupings\Index.vbhtml" />
+    <Content Include="Views\SubCategories\Create.vbhtml" />
+    <Content Include="Views\SubCategories\Edit.vbhtml" />
+    <Content Include="Views\SubCategories\Index.vbhtml" />
     <Content Include="Views\Users\Create.vbhtml" />
     <Content Include="Views\Users\Edit.vbhtml" />
     <Content Include="Views\Users\Index.vbhtml" />

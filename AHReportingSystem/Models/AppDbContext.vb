@@ -1,7 +1,9 @@
 Option Strict On
 Option Explicit On
 
+Imports System.ComponentModel.DataAnnotations.Schema
 Imports System.Data.Entity
+Imports System.Data.Entity.Infrastructure.Annotations
 Imports Microsoft.AspNet.Identity.EntityFramework
 
 Namespace Models
@@ -27,7 +29,8 @@ Namespace Models
         Public Property AccountGroupings As DbSet(Of AccountGrouping)
 
         ' Phase 2: Companies & Account Mapping
-        ' Public Property Companies As DbSet(Of Company)
+        Public Property Companies As DbSet(Of Company)
+        Public Property UserCompanies As DbSet(Of UserCompany)
         ' Public Property CompanyAccounts As DbSet(Of CompanyAccount)
 
         ' Phase 3: GL Entries
@@ -80,6 +83,17 @@ Namespace Models
                 .WithMany(Function(c) c.SubCategories) _
                 .HasForeignKey(Function(s) s.CategoryId) _
                 .WillCascadeOnDelete(False)
+
+            ' =====================================================
+            ' Phase 2 — Companies
+            ' =====================================================
+            ' Unique index on Code (case-insensitive by default in SQL Server).
+            modelBuilder.Entity(Of Company)() _
+                .Property(Function(c) c.Code) _
+                .IsRequired() _
+                .HasMaxLength(20) _
+                .HasColumnAnnotation("Index",
+                    New IndexAnnotation(New IndexAttribute("IX_Company_Code") With {.IsUnique = True}))
 
             ' Decimal precision for future financial columns — set here as the
             ' standard for this DbContext (18,2).
